@@ -1,0 +1,23 @@
+:root {
+    --tblr-body-font-family: Arial, Helvetica, sans-serif;
+    --head-font-family: Georgia, 'Helvetica', 'Arial', sans-serif;
+    --tblr-primary: #008ccd;
+    --tblr-secondary: #e60005;
+}
+
+.navbar {
+    --tblr-navbar-active-color: var(--tblr-secondary);
+    --tblr-navbar-active-border-color: var(--tblr-secondary);
+}
+
+body {
+    background-color: white;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: var(--head-font-family);
+}
+
+.active {
+    font-weight: bold;
+}
