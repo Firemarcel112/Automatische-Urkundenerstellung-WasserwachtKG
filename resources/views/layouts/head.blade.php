@@ -5,5 +5,4 @@
 
     <link href="{{ asset('assets/css/tabler.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet">
-    <script src="{{ asset('assets/js/tabler.min.js') }}"></script>
 </head>

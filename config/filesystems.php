@@ -38,10 +38,28 @@ return [
             'report' => false,
         ],
 
+        'certificates_private' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/certificates'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/certificates',
+            'serve' => true,
+            'throw' => false,
+            'report' => false,
+        ],
+
+        'certificates_public' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/certificates'),
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/certificates',
+            'serve' => true,
+            'throw' => false,
+            'report' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/').'/storage',
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,

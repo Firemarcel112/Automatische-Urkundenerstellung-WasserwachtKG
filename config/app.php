@@ -123,4 +123,6 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'pdf_path' => env('PDFTK_PATH', resource_path('bin/pdftk')),
+
 ];
