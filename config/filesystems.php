@@ -41,7 +41,7 @@ return [
         'certificates_private' => [
             'driver' => 'local',
             'root' => storage_path('app/private/certificates'),
-            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/certificates',
+            'url' => rtrim(env('APP_URL', 'http://localhost'), '/') . '/storage/templates/certificates',
             'serve' => true,
             'throw' => false,
             'report' => false,
