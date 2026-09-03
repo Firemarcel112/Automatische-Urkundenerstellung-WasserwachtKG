@@ -7,6 +7,7 @@
             @include('layouts.navbar')
             <div class="container">
                 <div class="page-wrapper">
+                    @include('layouts.alerts')
                     @yield('content')
                 </div>
             </div>

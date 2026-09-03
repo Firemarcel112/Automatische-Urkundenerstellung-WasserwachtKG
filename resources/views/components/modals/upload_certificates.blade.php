@@ -1,5 +1,6 @@
 <div aria-hidden="true" aria-labelledby="upload-certificate" class="modal fade" id="upload-certificate" tabindex="-1">
     <form action="{{ route('certificates.upload.store') }}" enctype="multipart/form-data" method="POST">
+        @csrf
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

@@ -20,7 +20,7 @@
                             <td>{{ $certificate_template->name }}</td>
                             <td class="text-end">
                                 <a class="btn btn-icon btn-primary" data-bs-placement="top" data-bs-toggle="tooltip" title="Neue Urkunde erstellen">@includeif('icons.plus')</a>
-                                <a class="btn btn-icon btn-warning" data-bs-placement="top" data-bs-toggle="tooltip" title="Einstellungen">@includeif('icons.settings')</a>
+                                <a class="btn btn-icon btn-warning" data-bs-placement="top" data-bs-toggle="tooltip" href="{{ route('certificates.settings.show', $certificate_template) }}" title="Einstellungen">@includeif('icons.settings')</a>
                             </td>
                         </tr>
                     @empty

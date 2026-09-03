@@ -17,9 +17,6 @@ class PDFService
         'FieldName' => [
             'undefined',
         ],
-        'FieldType' => [
-            'Button',
-        ]
     ]): array
     {
         $pdf = $this->getPdf($file_path);

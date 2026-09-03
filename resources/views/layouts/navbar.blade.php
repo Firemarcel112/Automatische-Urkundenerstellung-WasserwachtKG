@@ -19,8 +19,8 @@
                 <div class="row flex-column flex-md-row flex-fill align-items-center">
                     <div class="col">
                         <ul class="navbar-nav">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="./">
+                            <li class="nav-item @if (Route::is('home')) active @endif">
+                                <a class="nav-link" href="{{ route('home') }}">
                                     <span class="nav-link-icon d-md-none d-lg-inline-block">
                                         <span class="nav-link-title">Start</span>
                                     </span>

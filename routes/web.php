@@ -13,4 +13,14 @@ Route::name('certificates.')
             ->group(function () {
                 Route::post('/upload', 'store')->name('store');
             });
+
+        Route::name('settings.')
+            ->prefix('settings')
+            ->controller(App\Http\Controllers\CertificateSettingsController::class)
+            ->group(function () {
+                Route::get('/{certificate}', 'show')->name('show');
+                Route::get('/{certificate}/document', 'showDocument')->name('showDocument');
+                Route::post('/{certificate}', 'update')->name('update');
+                Route::delete('/{certificate}', 'destroy')->name('delete');
+            });
     });
