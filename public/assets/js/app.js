@@ -8,17 +8,18 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    document.getElementById('add-certificate-field').addEventListener('click', function () {
-        const index = `new_${Date.now()}`;
-        const fields_container = document.getElementById('certificate-fields');
-        const field_types = JSON.parse(this.dataset.fieldTypes || '{}');
-        const fieldTypeOptions = Object.entries(field_types)
-            .map(([value, label]) => `<option value="${value}">${value}</option>`)
-            .join('');
+    if (document.getElementById('add-certificate-field')) {
+        document.getElementById('add-certificate-field').addEventListener('click', function () {
+            const index = `new_${Date.now()}`;
+            const fields_container = document.getElementById('certificate-fields');
+            const field_types = JSON.parse(this.dataset.fieldTypes || '{}');
+            const fieldTypeOptions = Object.entries(field_types)
+                .map(([value, label]) => `<option value="${value}">${value}</option>`)
+                .join('');
 
-        const row = document.createElement('tr');
+            const row = document.createElement('tr');
 
-        row.innerHTML = `
+            row.innerHTML = `
                 <td class="ps-3">
                     <input class="form-control form-control-sm" name="fields[${index}][name]" placeholder="Feldname" required type="text">
                 </td>
@@ -35,7 +36,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 </td>
             `;
 
-        fields_container.appendChild(row);
-    });
+            fields_container.appendChild(row);
+        });
+    }
 
 });
