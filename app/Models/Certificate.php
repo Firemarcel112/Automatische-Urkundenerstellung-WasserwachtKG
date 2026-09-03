@@ -10,4 +10,8 @@ class Certificate extends Model
     protected $primaryKey = 'certificate_id';
 
     protected $guarded = ['certificate_id'];
+
+    protected $casts = [
+        'fields' => 'array',
+    ];
 }
