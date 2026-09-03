@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html data-bs-theme="light" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     @include('layouts.head')
 
     <body>

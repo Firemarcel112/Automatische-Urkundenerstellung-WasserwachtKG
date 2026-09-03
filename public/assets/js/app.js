@@ -7,6 +7,39 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
+    const theme_toggle = document.getElementById('theme-toggle');
+    const storage_key = 'theme';
+    const html = document.documentElement;
+
+    const stored_theme = localStorage.getItem(storage_key);
+    if (stored_theme === 'light' || stored_theme === 'dark') {
+        html.setAttribute('data-bs-theme', stored_theme);
+    }
+
+    function updateThemeIcons() {
+        const darkmode_enabled = html.getAttribute('data-bs-theme') === 'dark';
+
+        if (!theme_toggle) return;
+
+        const light_icon = theme_toggle.querySelector('.light-icon');
+        const dark_icon = theme_toggle.querySelector('.dark-icon');
+
+        if (light_icon) light_icon.style.display = darkmode_enabled ? 'none' : 'block';
+        if (dark_icon) dark_icon.style.display = darkmode_enabled ? 'block' : 'none';
+    }
+
+    updateThemeIcons();
+
+    theme_toggle?.addEventListener('click', function () {
+        const switch_theme = html.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+
+        html.setAttribute('data-bs-theme', switch_theme);
+        localStorage.setItem(storage_key, switch_theme);
+        updateThemeIcons();
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
 
     if (document.getElementById('add-certificate-field')) {
         document.getElementById('add-certificate-field').addEventListener('click', function () {

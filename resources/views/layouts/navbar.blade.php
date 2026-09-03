@@ -4,7 +4,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
+        <div class="navbar-brand d-none-navbar-horizontal pe-0 pe-md-3">
             <a aria-label="{{ config('app.name') }}" href=".">
                 <img class="navbar-brand-image" src="{{ asset('images/logo.webp') }}">
             </a>
@@ -28,6 +28,12 @@
                             </li>
                         </ul>
                     </div>
+                </div>
+                <div class="text-end">
+                    <a aria-label="Tag-/Nachtmodus umschalten" class="btn btn-icon" data-bs-toggle="tooltip" id="theme-toggle" title="Tag-/Nachtmodus umschalten" type="button">
+                        @include('icons.sun', ['classes' => 'dark-icon'])
+                        @include('icons.moon', ['classes' => 'light-icon'])
+                    </a>
                 </div>
             </div>
         </div>

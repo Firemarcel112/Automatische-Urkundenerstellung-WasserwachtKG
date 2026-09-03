@@ -48,7 +48,7 @@
                                 Änderungen hier wirken sich nicht auf dass Template aus, solltest du dein Template ändern, lade dies erneut hoch sonst werden Feldänderungen im Template nicht erkannt!
                             </span>
                         </div>
-                        <div class="card-header bg-white py-3">
+                        <div class="card-header py-3">
                             <h2 class="mb-0">Felder-Konfiguration</h2>
                         </div>
                         <div class="table-responsive">
