@@ -22,11 +22,11 @@ class CertificateUploadController extends Controller
         $certificate = Certificate::create(
             [
                 'name' => $request->string('name'),
-                'fields' => json_encode($pdf_fields),
+                'fields' => $pdf_fields,
                 'file_path' => $file_path,
             ]
         );
 
-        return redirect()->route('certificate.show', ['certificate' => $certificate->id]);
+        return redirect()->route('certificates.settings.show', ['certificate' => $certificate]);
     }
 }
