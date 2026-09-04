@@ -77,3 +77,51 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('add-new-row')) {
+        const add_row_button = document.getElementById('add-new-row');
+        const fields_table = document.getElementById('certificate-fields');
+
+        add_row_button.addEventListener('click', () => {
+            const rows = [...fields_table.querySelectorAll('tr')];
+            const used_index = new Set();
+
+            rows.forEach((row) => {
+                row.querySelectorAll('[name]').forEach((field) => {
+                    const match = field.name.match(/\[(\d+)\]/);
+                    if (match) {
+                        used_index.add(Number(match[1]));
+                    }
+                });
+            });
+
+            let next_index = 0;
+            while (used_index.has(next_index)) {
+                next_index++;
+            }
+
+            const newRow = rows[0].cloneNode(true);
+
+            newRow.querySelectorAll('input, select').forEach((field) => {
+                if (field.id) {
+                    field.id = field.id.replace(/-\d+$/, `-${next_index}`);
+                }
+
+                if (field.name) {
+                    field.name = field.name.replace(/\[\d+\]/, `[${next_index}]`);
+                }
+
+                if (field.tagName === 'INPUT') {
+                    field.value = '';
+                }
+
+                if (field.tagName === 'SELECT') {
+                    field.selectedIndex = 0;
+                }
+            });
+
+            fields_table.appendChild(newRow);
+        });
+    }
+});

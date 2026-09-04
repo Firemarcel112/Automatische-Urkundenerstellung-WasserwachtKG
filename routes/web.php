@@ -23,4 +23,23 @@ Route::name('certificates.')
                 Route::post('/{certificate}', 'update')->name('update');
                 Route::delete('/{certificate}', 'destroy')->name('delete');
             });
+
+        Route::name('create.')
+            ->prefix('create')
+            ->controller(App\Http\Controllers\CertificateCreateController::class)
+            ->group(function () {
+                Route::match(['GET', 'POST'], '/{certificate}', 'show')->name('show');
+                Route::post('/store/{certificate}', 'store')->name('store');
+            });
+    });
+
+Route::name('documents.')
+    ->prefix('documents')
+    ->group(function () {
+        Route::controller(App\Http\Controllers\DocumentController::class)
+            ->group(function () {
+                Route::get('', 'index')->name('index');
+                Route::get('show/{document}-{hash}', 'show')->name('show');
+                Route::get('download/{document}-{hash}', 'download')->name('download');
+            });
     });

@@ -21,9 +21,13 @@
                         <ul class="navbar-nav">
                             <li class="nav-item @if (Route::is('home')) active @endif">
                                 <a class="nav-link" href="{{ route('home') }}">
-                                    <span class="nav-link-icon d-md-none d-lg-inline-block">
-                                        <span class="nav-link-title">Start</span>
-                                    </span>
+                                    <span class="nav-link-title">Start</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item @if (Route::is('documents.index')) active @endif">
+                                <a class="nav-link" href="{{ route('documents.index') }}">
+                                    <span class="nav-link-title">Dokumente</span>
                                 </a>
                             </li>
                         </ul>

@@ -13,11 +13,7 @@ class PDFService
      * @param array{FieldName: array<string>, FieldType: array<string>} $ignore_fields
      * @return array<string, string>
      */
-    public function getFields(string $file_path, array $ignore_fields = [
-        'FieldName' => [
-            'undefined',
-        ],
-    ]): array
+    public function getFields(string $file_path, array $ignore_fields = []): array
     {
         $pdf = $this->getPdf($file_path);
 
