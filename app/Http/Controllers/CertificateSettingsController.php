@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Certificate;
 use Illuminate\Http\Request;
+use Spatie\SimpleExcel\SimpleExcelWriter;
 
 
 class CertificateSettingsController
@@ -51,6 +52,16 @@ class CertificateSettingsController
         ]);
 
         return redirect()->back()->with('success', 'Die Urkunde wurde erfolgreich aktualisiert.');
+    }
+
+    public function exportXlsx(Request $request, Certificate $certificate)
+    {
+
+        $csv = SimpleExcelWriter::streamDownload($certificate->name . '.tpl.xlsx');
+
+        $csv->addHeader(array_keys($certificate->fields));
+
+        return $csv->toBrowser();
     }
 
     public function destroy(Request $request, Certificate $certificate)

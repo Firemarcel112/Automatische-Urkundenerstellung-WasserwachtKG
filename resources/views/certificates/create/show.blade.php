@@ -1,6 +1,7 @@
 @use('App\Models\Certificate')
 @props([
     'certificate' => collect(),
+    'import_fields' => [],
 ])
 @php
     /** @var Certificate $certificate **/
@@ -10,7 +11,7 @@
 @section('content')
     <div class="page-header d-print-none">
         <div class="container-xl">
-            @include('components.modals.delete_certificate')
+            @include('components.modals.import_xlsx')
             <div class="row g-2 align-items-center">
                 <div class="col">
                     <h2 class="page-title">Urkunden erstellen</h2>
@@ -18,7 +19,7 @@
                 </div>
                 <div class="col-auto mx-auto d-print-none">
                     <div class="btn-list">
-                        <button class="btn btn-primary" data-bs-target="#delete-certificate" data-bs-toggle="modal" type="button">CSV Import</button>
+                        <button class="btn btn-primary" data-bs-target="#import-xlsx" data-bs-toggle="modal" type="button">Excel Import</button>
                     </div>
                 </div>
             </div>
@@ -48,53 +49,84 @@
                                     </tr>
                                 </thead>
                                 <tbody id="certificate-fields">
-                                    <tr>
-                                        <td class="ps-3">
-                                            <div class="row">
-                                                @foreach ($certificate->fields as $name => $type)
-                                                    <div class="form-floating mb-2 col-md-4 col-6">
-                                                        @switch($type)
-                                                            @case('Button')
-                                                            @case('button')
-                                                                <select class="form-select" id="{{ $name }}-0" name="certificate[0][{{ $name }}]">
-                                                                    <option value="true">Ja</option>
-                                                                    <option selected value="false">Nein</option>
-                                                                </select>
-                                                            @break
+                                    @forelse ($import_fields as $index => $fields)
+                                        <tr>
+                                            <td class="ps-3">
+                                                <div class="row">
+                                                    @foreach ($fields as $definition)
+                                                        <div class="form-floating mb-2 col-md-4 col-6">
+                                                            @switch($definition['type'])
+                                                                @case('Button')
+                                                                @case('button')
+                                                                    <select class="form-select" id="{{ $definition['name'] }}-{{ $index }}" name="certificate[{{ $index }}][{{ $definition['name'] }}]">
+                                                                        <option @selected($definition['selected']) value="true">Ja</option>
+                                                                        <option @selected(!$definition['selected']) value="false">Nein</option>
+                                                                    </select>
+                                                                @break
 
-                                                            @default
-                                                                <input class="form-control" id="{{ $name }}-0" name="certificate[0][{{ $name }}]" placeholder="{{ $name }}">
-                                                        @endswitch
-                                                        <label for="{{ $name }}-0">{{ $name }}</label>
+                                                                @default
+                                                                    <input class="form-control" id="{{ $definition['name'] }}-{{ $index }}" name="certificate[{{ $index }}][{{ $definition['name'] }}]" placeholder="{{ $definition['name'] }}" value="{{ $definition['value'] }}">
+                                                            @endswitch
+                                                            <label for="{{ $definition['name'] }}-{{ $index }}">{{ $definition['name'] }}</label>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </td>
+                                            <td class="text-end">
+                                                <button class="btn btn-icon btn-outline-danger" data-bs-toggle="tooltip" onclick="const row = this.closest('tr'); const tbody = row?.parentElement; if (tbody && tbody.children.length > 1) row.remove();" title="Block löschen" type="button">
+                                                    @include('icons.trash')
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        @empty
+                                            <tr>
+                                                <td class="ps-3">
+                                                    <div class="row">
+                                                        @foreach ($certificate->fields as $name => $type)
+                                                            <div class="form-floating mb-2 col-md-4 col-6">
+                                                                @switch($type)
+                                                                    @case('Button')
+                                                                    @case('button')
+                                                                        <select class="form-select" id="{{ $name }}-0" name="certificate[0][{{ $name }}]">
+                                                                            <option value="true">Ja</option>
+                                                                            <option selected value="false">Nein</option>
+                                                                        </select>
+                                                                    @break
+
+                                                                    @default
+                                                                        <input class="form-control" id="{{ $name }}-0" name="certificate[0][{{ $name }}]" placeholder="{{ $name }}">
+                                                                @endswitch
+                                                                <label for="{{ $name }}-0">{{ $name }}</label>
+                                                            </div>
+                                                        @endforeach
                                                     </div>
-                                                @endforeach
-                                            </div>
-                                        </td>
-                                        <td class="text-end">
-                                            <button class="btn btn-icon btn-outline-danger" data-bs-toggle="tooltip" onclick="const row = this.closest('tr'); const tbody = row?.parentElement; if (tbody && tbody.children.length > 1) row.remove();" title="Feld löschen" type="button">
-                                                @include('icons.trash')
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="card-footer text-end">
-                            <button class="btn btn-outline-primary" data-icon-trash="{{ view('icons.trash')->render() }}" id="add-new-row" type="button">
-                                Neuen Block Anlegen
-                            </button>
+                                                </td>
+                                                <td class="text-end">
+                                                    <button class="btn btn-icon btn-outline-danger" data-bs-toggle="tooltip" onclick="const row = this.closest('tr'); const tbody = row?.parentElement; if (tbody && tbody.children.length > 1) row.remove();" title="Block löschen" type="button">
+                                                        @include('icons.trash')
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="card-footer text-end">
+                                <button class="btn btn-outline-primary" data-icon-trash="{{ view('icons.trash')->render() }}" id="add-new-row" type="button">
+                                    Neuen Block Anlegen
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="text-end">
-                    <button class="btn btn-success" type="submit">Änderungen Speichern</button>
+                    <div class="text-end">
+                        <button class="btn btn-success" type="submit">Urkunden erstellen</button>
+                    </div>
+                </form>
+                <div class="row row-deck row-cards">
                 </div>
-            </form>
-            <div class="row row-deck row-cards">
             </div>
         </div>
-    </div>
 
-    <script></script>
-@endsection
+        <script></script>
+    @endsection

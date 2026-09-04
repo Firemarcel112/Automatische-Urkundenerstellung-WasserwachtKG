@@ -14,6 +14,9 @@ Route::name('certificates.')
                 Route::post('/upload', 'store')->name('store');
             });
 
+        Route::get('export/xlsx/{certificate}', [App\Http\Controllers\CertificateSettingsController::class, 'exportXlsx'])
+            ->name('export.xlsx');
+
         Route::name('settings.')
             ->prefix('settings')
             ->controller(App\Http\Controllers\CertificateSettingsController::class)
@@ -30,6 +33,8 @@ Route::name('certificates.')
             ->group(function () {
                 Route::match(['GET', 'POST'], '/{certificate}', 'show')->name('show');
                 Route::post('/store/{certificate}', 'store')->name('store');
+
+                Route::post('import/xlsx/{certificate}', 'importXlsx')->name('import.xlsx');
             });
     });
 
