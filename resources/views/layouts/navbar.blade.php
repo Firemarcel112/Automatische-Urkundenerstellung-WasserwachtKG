@@ -31,8 +31,8 @@
                 </div>
                 <div class="text-end">
                     <a aria-label="Tag-/Nachtmodus umschalten" class="btn btn-icon" data-bs-toggle="tooltip" id="theme-toggle" title="Tag-/Nachtmodus umschalten" type="button">
-                        @include('icons.sun', ['classes' => 'dark-icon'])
-                        @include('icons.moon', ['classes' => 'light-icon'])
+                        @include('icons.sun', ['classes' => 'd-none dark-icon'])
+                        @include('icons.moon', ['classes' => 'd-none light-icon'])
                     </a>
                 </div>
             </div>

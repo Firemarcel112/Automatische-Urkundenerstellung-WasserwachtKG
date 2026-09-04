@@ -24,6 +24,9 @@ document.addEventListener('DOMContentLoaded', function () {
         const light_icon = theme_toggle.querySelector('.light-icon');
         const dark_icon = theme_toggle.querySelector('.dark-icon');
 
+        light_icon.classList.remove('d-none');
+        dark_icon.classList.remove('d-none');
+
         if (light_icon) light_icon.style.display = darkmode_enabled ? 'none' : 'block';
         if (dark_icon) dark_icon.style.display = darkmode_enabled ? 'block' : 'none';
     }
