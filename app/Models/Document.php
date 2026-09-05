@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Override;
 
 /**
  * @property int $document_id
@@ -32,4 +33,13 @@ class Document extends Model
     protected $casts = [
         'created_at' => 'datetime',
     ];
+
+    #[Override]
+    public function delete()
+    {
+        if (file_exists($this->file_path)) {
+            unlink($this->file_path);
+        }
+        return parent::delete();
+    }
 }

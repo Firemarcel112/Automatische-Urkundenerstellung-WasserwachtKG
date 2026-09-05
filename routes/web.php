@@ -46,5 +46,6 @@ Route::name('documents.')
                 Route::get('', 'index')->name('index');
                 Route::get('show/{document}-{hash}', 'show')->name('show');
                 Route::get('download/{document}-{hash}', 'download')->name('download');
+                Route::delete('destroy/{document}', 'destroy')->name('destroy');
             });
     });

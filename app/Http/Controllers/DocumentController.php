@@ -36,4 +36,11 @@ class DocumentController extends Controller
         }
         return redirect()->route('documents.index')->with('error', 'Die Datei konnte nicht gefunden werden');
     }
+
+    public function destroy(Request $request, Document $document)
+    {
+        $document->delete();
+
+        return redirect()->back()->with('success', 'Die Urkunde wurde erfolgreich gelöscht');
+    }
 }
