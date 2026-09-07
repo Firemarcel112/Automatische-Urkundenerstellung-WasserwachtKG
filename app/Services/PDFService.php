@@ -46,6 +46,7 @@ class PDFService
 
         return $pdf->fillForm($fields)
             ->needAppearances()
+            ->flatten()
             ->saveAs($output_path);
     }
 
