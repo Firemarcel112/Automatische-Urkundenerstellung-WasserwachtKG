@@ -10,7 +10,7 @@
                 </div>
                 <div class="col-auto mx-auto d-print-none">
                     <div class="btn-list">
-                        <button class="btn btn-primary" data-bs-target="#upload-certificate" data-bs-toggle="modal" type="button">Neue Urkunde Hochladen</button>
+                        <button class="btn btn-primary" data-bs-target="#upload-certificate" data-bs-toggle="modal"data-bs-toggle="modal" type="button">Neue Urkunde Hochladen</button>
                     </div>
                 </div>
             </div>

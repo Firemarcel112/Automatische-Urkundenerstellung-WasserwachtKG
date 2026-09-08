@@ -6,7 +6,7 @@
 
         <div class="navbar-brand d-none-navbar-horizontal pe-0 pe-md-3">
             <a aria-label="{{ config('app.name') }}" href=".">
-                <img class="navbar-brand-image" src="{{ asset('images/logo.webp') }}">
+                <img class="navbar-brand-image" src="{{ asset('images/logo.png') }}">
             </a>
         </div>
     </div>
