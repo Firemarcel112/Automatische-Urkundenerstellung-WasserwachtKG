@@ -26,7 +26,8 @@ class CertificateCreateController
                 $import_field = [
                     'name' => $name,
                     'type' => $field_type,
-                    'value' => $value
+                    'value' => $value,
+                    'selected' => null,
                 ];
 
                 if ($field_type == 'button') {

@@ -6,6 +6,9 @@
             <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>
         </div>
     @endforeach
+    @php
+        session()->forget('success');
+    @endphp
 @endif
 
 @if (session()->has('error'))
@@ -16,4 +19,7 @@
             <button aria-label="Close" class="btn-close" data-bs-dismiss="alert" type="button"></button>
         </div>
     @endforeach
+    @php
+        session()->forget('error');
+    @endphp
 @endif
