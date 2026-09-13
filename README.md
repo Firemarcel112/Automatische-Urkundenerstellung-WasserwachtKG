@@ -5,14 +5,20 @@
 <h2>Technische Vorraussetzungen</h2>
 <ul>
 <li>PHP 8.4</li>
+<li>Einstellungen
+    <ul>
+    <li>post_max_size = 10M</li>
+    <li>upload_max_filesize = 10M</li>
+    </ul>
+</li>
 <li>PHP Extensions
     <ul>
-    <li>curl</li>
-    <li>fileinfo</li>
-    <li>mbstring</li>
-    <li>openssl</li>
-    <li>pdo_sqlite</li>
-    <li>zip</li>
+        <li>curl</li>
+        <li>fileinfo</li>
+        <li>mbstring</li>
+        <li>openssl</li>
+        <li>pdo_sqlite</li>
+        <li>zip</li>
     </ul>
 </li>
 </ul>
