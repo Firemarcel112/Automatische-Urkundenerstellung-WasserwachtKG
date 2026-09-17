@@ -61,22 +61,10 @@ class Install extends Command
         $bar->finish();
 
         $this->line('Anwendung gestartet');
-        Artisan::call('serve', [],  $this->output);
-    }
-
-    public function setEnv(string $name, mixed $value)
-    {
-        $path = base_path('.env');
-
-        if (file_exists($path)) {
-            file_put_contents(
-                $path,
-                str_replace(
-                    $name . '=' . env($name),
-                    $name . '=' . $value,
-                    file_get_contents($path)
-                )
-            );
+        // @codeCoverageIgnoreStart
+        if (!app()->runningUnitTests()) {
+            Artisan::call('serve', [],  $this->output);
         }
+        // @codeCoverageIgnoreEnd
     }
 }
