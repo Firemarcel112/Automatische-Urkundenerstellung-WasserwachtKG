@@ -14,7 +14,8 @@ host_db_port: "3394"
 use_dns_when_possible: true
 composer_version: "2"
 disable_settings_management: true
-web_environment: []
+web_environment:
+  - XDEBUG_MODE=debug,coverage
 nodejs_version: "24"
 corepack_enable: false
 default_container_timeout: "240"
