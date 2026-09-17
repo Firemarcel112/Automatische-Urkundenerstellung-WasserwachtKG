@@ -6,16 +6,15 @@ use App\Models\Certificate;
 use App\Models\Document;
 use App\Services\PDFService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Spatie\SimpleExcel\SimpleExcelReader;
 
 class CertificateCreateController
 {
 
-    public function show(Request $request, Certificate $certificate, array $import_fields = [])
+    public function show(Request $request, Certificate $certificate)
     {
-
+        $import_fields = session('import_fields', []);
         $tmp_import_fields = [];
         $original_fields = collect($certificate->fields);
 
@@ -90,9 +89,14 @@ class CertificateCreateController
     public function importXlsx(Request $request, Certificate $certificate)
     {
         $import_file = $request->file('import_file');
+
         $file = SimpleExcelReader::create($import_file->getRealPath(), 'xlsx')->getRows();
 
-        Session::push('success', 'Du hast die Datei erfolgreich importiert, prüfe unten dein Ergebnis und klicke anschließend auf Urkunden erstellen');
-        return $this->show($request, $certificate, $file->all());
+        session()->flash('import_fields', $file->all());
+        session()->push('success', 'Du hast die Datei erfolgreich importiert, prüfe unten dein Ergebnis und klicke anschließend auf Urkunden erstellen');
+
+        return redirect()->route('certificates.create.show', [
+            'certificate' => $certificate
+        ]);
     }
 }
