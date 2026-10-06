@@ -14,7 +14,7 @@ class ExportServiceTest extends TestCase
         $writer_mock = $this->mock(SimpleExcelWriter::class, function (MockInterface $mock) {
             $mock->shouldReceive('addHeader')
                 ->once()
-                ->with(['ID', 'Name']);
+                ->with(['Name']);
 
             $mock->shouldReceive('toBrowser')
                 ->once();
@@ -31,10 +31,7 @@ class ExportServiceTest extends TestCase
         });
 
         $options = [
-            [
-                'type' => 'header',
-                'header' => ['ID', 'Name']
-            ]
+            'header' => ['Name'],
         ];
 
         $service->exportAndOutputToBrowser('mein_export.xlsx', $options);

@@ -73,8 +73,8 @@ class CertificateSettingsControllerTest extends TestCase
 
             $response->assertHeader('Content-Type', 'application/pdf');
         } finally {
-            if (file_exists($temp_file)) {
-                @unlink($temp_file);
+            if (file_exists($certificate->file_path)) {
+                @unlink($certificate->file_path);
             }
         }
     }

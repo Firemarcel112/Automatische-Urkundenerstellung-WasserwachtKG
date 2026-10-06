@@ -16,9 +16,9 @@ class ExportService
     {
         $csv = $this->createWriter($file_name);
 
-        foreach ($options as $option) {
-            if (isset($option['type']) && $option['type'] === 'header') {
-                $csv->addHeader($option['header']);
+        foreach ($options as $name => $value) {
+            if ($name == 'header') {
+                $csv->addHeader($value);
             }
         }
 
