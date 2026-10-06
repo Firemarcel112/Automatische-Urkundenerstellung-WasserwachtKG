@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Controller;
 
-use \Illuminate\Foundation\Testing\RefreshDatabase;
-use \Illuminate\Http\UploadedFile;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use App\Models\Certificate;
 use Tests\TestCase;
 

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Certificate;
+use App\Services\ExportService;
 use Illuminate\Http\Request;
-use Spatie\SimpleExcel\SimpleExcelWriter;
 
 
 class CertificateSettingsController
 {
-    public function show(Request $request, Certificate $certificate)
+    public function show(Certificate $certificate)
     {
         $field_types = [
             'Text' => 'Einfaches Textfeld',
@@ -22,7 +22,7 @@ class CertificateSettingsController
         ]);
     }
 
-    public function showDocument(Request $request, Certificate $certificate)
+    public function showDocument(Certificate $certificate)
     {
         if (!file_exists($certificate->file_path)) {
             return redirect()->back()->with('error', 'Die Urkundenvorlage existiert nicht mehr.');
@@ -54,17 +54,20 @@ class CertificateSettingsController
         return redirect()->back()->with('success', 'Die Urkunde wurde erfolgreich aktualisiert.');
     }
 
-    public function exportXlsx(Request $request, Certificate $certificate)
+    /**
+     * @codeCoverageIgnore
+     * @param Certificate $certificate
+     * @param ExportService $export_service
+     * @return void
+     */
+    public function exportXlsx(Certificate $certificate, ExportService $export_service): void
     {
-
-        $csv = SimpleExcelWriter::streamDownload($certificate->name . '.tpl.xlsx');
-
-        $csv->addHeader(array_keys($certificate->fields));
-
-        return $csv->toBrowser();
+        $export_service->exportAndOutputToBrowser($certificate->name . '.tpl.xlsx', [
+            'header' => array_keys($certificate->fields)
+        ]);
     }
 
-    public function destroy(Request $request, Certificate $certificate)
+    public function destroy(Certificate $certificate)
     {
         if (file_exists($certificate->file_path)) {
             unlink($certificate->file_path);

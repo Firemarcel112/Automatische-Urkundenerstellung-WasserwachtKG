@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Certificate;
 use App\Models\Document;
+use App\Services\ImportService;
 use App\Services\PDFService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Spatie\SimpleExcel\SimpleExcelReader;
 
 class CertificateCreateController
 {
@@ -29,7 +29,7 @@ class CertificateCreateController
                     'selected' => null,
                 ];
 
-                if ($field_type == 'button') {
+                if (strtolower($field_type) == 'button') {
                     $import_field['selected'] = strtolower((string) $value) == 'true' || strtolower((string) $value) == 'on';
                 }
 
@@ -86,13 +86,13 @@ class CertificateCreateController
             ->with('success', 'Urkunden wurden erfolgreich erstellt!');
     }
 
-    public function importXlsx(Request $request, Certificate $certificate)
+    public function importXlsx(Request $request, Certificate $certificate, ImportService $import_service)
     {
         $import_file = $request->file('import_file');
 
-        $file = SimpleExcelReader::create($import_file->getRealPath(), 'xlsx')->getRows();
+        $rows = $import_service->importXlsxAndReturnFieldsWithName($import_file->getRealPath());
 
-        session()->flash('import_fields', $file->all());
+        session()->flash('import_fields', $rows);
         session()->push('success', 'Du hast die Datei erfolgreich importiert, prüfe unten dein Ergebnis und klicke anschließend auf Urkunden erstellen');
 
         return redirect()->route('certificates.create.show', [
