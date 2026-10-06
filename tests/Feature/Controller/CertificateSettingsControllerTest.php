@@ -173,7 +173,7 @@ class CertificateSettingsControllerTest extends TestCase
                 'Test' => 'Button',
                 'Test_1' => 'Text',
             ],
-            'file_path' => '/var/www/html/' . uniqid() . '.pdf',
+            'file_path' => storage_path(uniqid() . '.pdf'),
         ]);
 
         $temp_file = touch($certificate->file_path);
