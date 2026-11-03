@@ -2,26 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Certificate;
-use Illuminate\Support\Facades\Storage;
 use App\Services\PDFService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CertificateUploadController extends Controller
 {
 
     public function store(Request $request, PDFService $pdf_service)
     {
-        $request->file('certificate')
-            ->storeAs('certificates', $request->string('name') . '.pdf');
+        $file_name = str($request->file('certificate')->getClientOriginalName())
+            ->remove('.' . $request->file('certificate')->getClientOriginalExtension())
+            ->value();
 
-        $file_path = Storage::disk('certificates_private')->path($request->string('name') . '.pdf');
+        $name = empty($request->string('name')->value()) ? $file_name : $request->string('name')->value();
+
+        $request->file('certificate')
+            ->storeAs('certificates', $name . '.pdf');
+
+        $file_path = Storage::disk('certificates_private')->path($name . '.pdf');
 
         $pdf_fields = $pdf_service->getFields($file_path);
 
         $certificate = Certificate::create(
             [
-                'name' => $request->string('name'),
+                'name' => $name,
                 'fields' => $pdf_fields,
                 'file_path' => $file_path,
             ]
