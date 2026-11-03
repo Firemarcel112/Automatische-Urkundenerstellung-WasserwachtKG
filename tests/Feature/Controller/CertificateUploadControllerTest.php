@@ -42,4 +42,33 @@ class CertificateUploadControllerTest extends TestCase
             'name' => $name,
         ]);
     }
+
+    public function testCertificateStoresSuccessfullyWithOnlyFileName()
+    {
+        Storage::fake('public');
+        Storage::fake('certificates_private');
+
+        $this->mock(PDFService::class, function (MockInterface $mock) {
+            $mock->shouldReceive('getFields')
+                ->once()
+                ->andReturn([
+                    'Test' => 'Text',
+                    'Test2' => 'Button',
+                ]);
+        });
+
+        $file_name = uniqid('test');
+        $file = UploadedFile::fake()->create($file_name . '.pdf', 100, 'application/pdf');
+
+
+        $response = $this->post(route('certificates.upload.store'), [
+            'certificate' => $file,
+        ]);
+
+        $response->assertRedirect();
+
+        $this->assertDatabaseHas('certificates', [
+            'name' => $file_name,
+        ]);
+    }
 }
