@@ -87,7 +87,7 @@ class DocumentControllerTest extends TestCase
 
     public function testDownloadDocument()
     {
-        $temp_file = tempnam(sys_get_temp_dir(), 'test_pdf');
+        $temp_file = sys_get_temp_dir() . DIRECTORY_SEPARATOR . uniqid('test_pdf_', true) . '.pdf';
         file_put_contents($temp_file, 'PDF Content');
 
         try {
@@ -107,7 +107,7 @@ class DocumentControllerTest extends TestCase
                 'hash' => $document_hash
             ]));
 
-            $response->assertdownload($file_name);
+            $response->assertdownload($file_name . '.pdf');
         } finally {
             if (file_exists($temp_file)) {
                 @unlink($temp_file);
